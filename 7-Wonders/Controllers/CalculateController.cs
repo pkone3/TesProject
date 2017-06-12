@@ -149,6 +149,12 @@ namespace SevenWonders.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult ResetScores()
+        {
+            Persistent.PlayerScores.RemoveAll(p => p.id > 0);
+            return RedirectToAction("CalculateList");
+        }
+
 
     }
 }
