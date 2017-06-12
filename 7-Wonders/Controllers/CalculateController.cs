@@ -142,5 +142,13 @@ namespace SevenWonders.Controllers
             return View(Persistent.PlayerScores.OrderBy(s => s.position));
         }
 
+        public ActionResult Reset()
+        {
+            Persistent.PlayerList.RemoveAll(p => p.id > 0);
+            Persistent.PlayerScores.RemoveAll(p => p.id > 0);
+            return RedirectToAction("Index");
+        }
+
+
     }
 }
