@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Final Scores";
+}
+<link rel="stylesheet" href="~/css/site.css" />
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <p>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th style="display:none"><bold>Player Number</bold></th>
+                    <th class="name-class">Position</th>
+                    <th class="name-class">Player Name</th>
+                    <th class="table-class">Overall Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    @foreach (var pl in Model)
+                    {
+                        <tr>
+                            <td style="display:none">
+                                @pl.id
+                            </td>
+                            <td class="name-data">
+                                @pl.position
+                            </td>
+                            <td class="name-data">
+                                @pl.name
+                            </td>
+                            <td class="data-class">
+                                @pl.score
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </p>
+</div>
+
+
+
+<p>@ViewData["Message"]</p>
+
+

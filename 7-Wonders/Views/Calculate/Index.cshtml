@@ -1,0 +1,72 @@
+﻿@{
+    ViewData["Title"] = "7 Wonders Calculator";
+}
+
+<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
+
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <img src="~/images/7Wonder-1.jpg" alt="7 Wonders" class="center-block" />
+            <div class="carousel-caption" role="option">
+            </div>
+        </div>
+        <div class="item">
+            <img src="~/images/7Wonder-2.jpg" alt="7 Wonders" class="center-block" />
+            <div class="carousel-caption" role="option">
+            </div>
+        </div>
+        <div class="item">
+            <img src="~/images/7Wonder-3.jpg" alt="7 Wonders" class="center-block" />
+            <div class="carousel-caption" role="option">
+            </div>
+        </div>
+     </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <h2>How to use the calculator</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. <b>Lorem ipsum dolor sit amet, consectetur adipiscing elit</b>. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. </p>
+
+        <p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. <b>Praesent mauris</b>. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. <b>Vestibulum lacinia arcu eget nulla</b>. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet. <i>Lorem ipsum dolor sit amet, consectetur adipiscing elit</i>. Mauris ipsum. </p>
+
+        <p><b>Curabitur sodales ligula in libero</b>. Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh. Quisque volutpat condimentum velit. <i>Sed dignissim lacinia nunc</i>. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam nec ante. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla. Suspendisse potenti. <b>Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh</b>. Nunc feugiat mi a tellus consequat imperdiet. Vestibulum sapien. Proin quam. Etiam ultrices. Suspendisse in justo eu magna luctus suscipit. Sed lectus. </p>
+
+    </div>
+    <div class="col-md-5">
+        <p>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="col-md-5"><h3>Player Number</h3></th>
+                        <th class="col-md-5"><h3>Player Name</h3></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if(Model != null)
+                    { 
+                        @foreach (var pl in Model)
+                        {
+                            <tr>
+                                <td class="col-md-5">
+                                    <h4>@pl.id</h4>
+                                </td>
+                                <td class="col-md-5">
+                                    <h4>@pl.name</h4>
+                                </td>
+                                <td class="col-md-5">
+                                   @Html.ActionLink("Delete", "DeletePlayer", new { id = @pl.id })
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </p>
+    </div>
+</div>
+<a href="/Calculate/AddPlayer">Add Player</a>
+<a href="/Calculate/CalculateList" style="float:right">Enter Scores</a>
+<p>
+    @ViewData["Message"]
+</p>

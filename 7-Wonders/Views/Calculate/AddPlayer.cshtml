@@ -1,0 +1,22 @@
+﻿@using SevenWonders.Models
+@{
+    ViewData["Title"] = "Add Player for Scoring";
+}
+<h2>@ViewData["Title"].</h2>
+
+
+
+@model SevenWonders.Models.Player
+@{
+    using (Html.BeginForm("Add", "Calculate", FormMethod.Post))
+    {
+        <label>Name</label>
+        @Html.TextBoxFor(n => n.name)
+        <input type="submit" value="Add" />
+    }
+}
+<p />
+<a href="./Index" style="float:right">Return</a>
+<p>
+    @ViewData["Message"]
+</p>

@@ -1,0 +1,247 @@
+﻿@using SevenWonders.Models
+@model Player
+@{
+    ViewData["Title"] = "Add Scores";
+}
+<h2>@ViewData["Title"].</h2>
+
+@{
+    using (Html.BeginForm("UpdateScores", "Calculate", FormMethod.Post))
+    {
+        <br />
+        <table>
+            <tbody>
+                <tr>
+                    <td>@Html.HiddenFor(n => n.id)</td>
+                    <td>@Html.HiddenFor(n => n.name)</td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Are you using side A of the player mat?&nbsp;&nbsp;</label>
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(n => n.isWonderSideA, new { autofocus = "autofocus" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Which player mat are you using?</label>
+                    </td>
+                    <td>
+                        @Html.DropDownList("ddWonders")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Wonder stages completed</label>
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(n => n.wonderStages)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Victory Tokens</label>
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(n => n.victoryTokens) 
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Defeat Tokens</label>
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(n => n.defeatTokens)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Coins in Treasury</label>
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(n => n.coins)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Total points from civilian buildings</label>
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(n => n.civilianPoints)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Total points from commercial buildings</label>
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(n => n.commercialPoints)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>The number of gear science cards</label>
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(n => n.gearCards)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>The number of protractor science cards&nbsp;&nbsp;</label>
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(n => n.protractorCards)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>The number of tablet science cards</label>
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(n => n.tabletCards)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"><br /></td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Do you own the ship owners guild?</label>
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(n => n.hasShipOwners)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Do you own the scientists guild?</label>
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(n => n.hasScientists)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Do you own the spies guild?</label>
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(n => n.hasSpies)
+                    </td>
+                    <td>
+                        <label>The number of red cards in your neighboring cities?&nbsp;</label>
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(n => n.Spies)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Do you own the magistrates guild?</label>
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(n => n.hasMagistrates)
+                    </td>
+                    <td>
+                        <label>The number of blue cards in your neighboring cities?&nbsp;</label>
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(n => n.Magistrates)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Do you own the workers guild?</label>
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(n => n.hasWorkers)
+                    </td>
+                    <td>
+                        <label>The number of brown cards in your neighboring cities?&nbsp;</label>
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(n => n.Workers)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Do you own the craftsmans guild?</label>
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(n => n.hasCraftsmans)
+                    </td>
+                    <td>
+                        <label>The number of grey cards in your neighboring cities?&nbsp;</label>
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(n => n.Craftsmans)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Do you own the traders guild?</label>
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(n => n.hasTraders)
+                    </td>
+                    <td>
+                        <label>The number of yellow cards in your neighboring cities?&nbsp;</label>
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(n => n.Traders)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Do you own the philosophers guild?</label>
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(n => n.hasPhilosophers)
+                    </td>
+                    <td>
+                        <label>The number of green cards in your neighboring cities?&nbsp;</label>
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(n => n.Philosophers)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Do you own the builders guild?</label>
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(n => n.hasBuilders)
+                    </td>
+                    <td>
+                        <label>The number of wonder stages built in your neighboring cities?&nbsp;&nbsp;</label>
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(n => n.Builders)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Do you own the strategists guild?</label>
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(n => n.hasStrategists)
+                    </td>
+                    <td>
+                        <label>The number of defeat tokens in your neighboring cities?&nbsp;</label>
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(n => n.Strategists)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br />
+        <input type="submit" value="Update Player" />
+    }
+}
+<p />
+<a href="./Index" style="float:right">Return</a>
+<p>
+    @ViewData["Message"]
+</p>

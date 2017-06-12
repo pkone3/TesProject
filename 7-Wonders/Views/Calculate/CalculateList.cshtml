@@ -1,0 +1,132 @@
+﻿@{
+    ViewData["Title"] = "Enter Scores";
+}
+<link rel="stylesheet" href="~/css/site.css" />
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <p>
+        <table>
+            <thead>
+                <tr>
+                    <th style="display:none"><bold>Player Number</bold></th>
+                    <th class="name-class">Player Name</th>
+                    <th class="table-class">Side A?</th>
+                    <th class="table-class">Wonder Stages Completed</th>
+                    <th class="table-class">Victory Tokens</th>
+                    <th class="table-class">Defeat Tokens</th>
+                    <th class="table-class">Coins</th>
+                    <th class="table-class">Civilian Structure Points</th>
+                    <th class="table-class">Commercial Structure Points</th>
+                    <th class="table-class"># of Gears</th>
+                    <th class="table-class"># of Protractors</th>
+                    <th class="table-class"># of Tablets</th>
+                    <th class="table-class">Spies Guild?</th>
+                    @*<th class="col-md-2"><bold># Red Cards</bold></th>*@
+                    <th class="table-class"><bold>Magistrates Guild?</bold></th>
+                    @*<th class="col-md-2"><bold># Blue Cards</bold></th>*@
+                    <th class="table-class"><bold>Workers Guild?</bold></th>
+                    @*<th class="col-md-2"><bold># Brown Cards</bold></th>*@
+                    <th class="table-class"><bold>Craftsmans Guild?</bold></th>
+                    @*<th class="col-md-2"><bold># Grey Cards</bold></th>*@
+                    <th class="table-class"><bold>Traders Guild?</bold></th>
+                    @*<th class="col-md-2"><bold># Yellow Cards</bold></th>*@
+                    <th class="table-class"><bold>Philosophers Guild?</bold></th>
+                    @*<th class="col-md-2"><bold># Green Cards</bold></th>*@
+                    <th class="table-class"><bold>Builders Guild</bold></th>
+                    @*<th class="col-md-2"><bold>Adjacent Wonder Stages</bold></th>*@
+                    <th class="table-class"><bold>Ship Owners Guild?</bold></th>
+                    <th class="table-class"><bold>Strategists Guild?</bold></th>
+                    @*<th class="col-md-2"><bold>Adjacent Defeat Tokens</bold></th>*@
+                    <th class="table-class"><bold>Scientists Guild?</bold></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    @foreach (var pl in Model)
+                    {
+                        <tr>
+                            <td style="display:none">
+                                @pl.id
+                            </td>
+                            <td class="name-data">
+                                @pl.name
+                            </td>
+                            <td class="data-class">
+                                @(pl.isWonderSideA.ToString() == "True" ? "Yes" : "No")
+                            </td>
+                            <td class="data-class">
+                                @pl.wonderStages
+                            </td>
+                            <td class="data-class">
+                                @pl.victoryTokens
+                            </td>
+                            <td class="data-class">
+                                @pl.defeatTokens
+                            </td>
+                            <td class="data-class">
+                                @pl.coins
+                            </td>
+                            <td class="data-class">
+                                @pl.civilianPoints
+                            </td>
+                            <td class="data-class">
+                                @pl.commercialPoints
+                            </td>
+                            <td class="data-class">
+                                @pl.gearCards
+                            </td>
+                            <td class="data-class">
+                                @pl.protractorCards
+                            </td>
+                            <td class="data-class">
+                                @pl.tabletCards
+                            </td>
+                            <td class="data-class">
+                                @(pl.hasSpies.ToString() == "True" ? "Yes" : "No")
+                            </td>
+                            <td class="data-class">
+                                @(pl.hasMagistrates.ToString() == "True" ? "Yes" : "No")
+                            </td>
+                            <td class="data-class">
+                                @(pl.hasWorkers.ToString() == "True" ? "Yes" : "No")
+                            </td>
+                            <td class="data-class">
+                                @(pl.hasCraftsmans.ToString() == "True" ? "Yes" : "No")
+                            </td>
+                            <td class="data-class">
+                                @(pl.hasTraders.ToString() == "True" ? "Yes" : "No")
+                            </td>
+                            <td class="data-class">
+                                @(pl.hasPhilosophers.ToString() == "True" ? "Yes" : "No")
+                            </td>
+                            <td class="data-class">
+                                @(pl.hasBuilders.ToString() == "True" ? "Yes" : "No")
+                            </td>
+                            <td class="data-class">
+                                @(pl.hasShipOwners.ToString() == "True" ? "Yes" : "No")
+                            </td>
+                            <td class="data-class">
+                                @(pl.hasStrategists.ToString() == "True" ? "Yes" : "No")
+                            </td>
+                            <td class="data-class">
+                                @(pl.hasScientists.ToString() == "True" ? "Yes" : "No")
+                            </td>
+                            <td class="col-md-5">
+                                <a href="/Calculate/AddScores/@pl.id">Scores</a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </p>
+</div>
+<br />
+<br />
+<a href="/Calculate/FinalScores" style="float:right">Score the Game</a>
+<p>@ViewData["Message"]</p>
+
+
