@@ -5,6 +5,11 @@ VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SevenWonders", "7-Wonders\SevenWonders.csproj", "{094A46AC-6642-434B-9B75-06004557E05A}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{9E1B61A2-185D-4E41-88AB-CDCD3525E815}"
+	ProjectSection(ProjectDependencies) = postProject
+		{094A46AC-6642-434B-9B75-06004557E05A} = {094A46AC-6642-434B-9B75-06004557E05A}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +20,10 @@ Global
 		{094A46AC-6642-434B-9B75-06004557E05A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{094A46AC-6642-434B-9B75-06004557E05A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{094A46AC-6642-434B-9B75-06004557E05A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E1B61A2-185D-4E41-88AB-CDCD3525E815}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E1B61A2-185D-4E41-88AB-CDCD3525E815}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E1B61A2-185D-4E41-88AB-CDCD3525E815}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E1B61A2-185D-4E41-88AB-CDCD3525E815}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

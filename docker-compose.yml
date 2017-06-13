@@ -1,0 +1,8 @@
+version: '2'
+
+services:
+  sevenwonders:
+    image: sevenwonders
+    build:
+      context: ./7-Wonders
+      dockerfile: Dockerfile
