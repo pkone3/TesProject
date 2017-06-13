@@ -59,3 +59,6 @@ td.name-data {
     text-align: left;
     column-width: 500px;
 }
+.floatright {
+    float: right
+}

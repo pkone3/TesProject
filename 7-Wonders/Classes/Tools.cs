@@ -120,11 +120,30 @@ namespace SevenWonders.Classes
 
             //Score science structures
             //2 scores available, matching and sets
-            pointAccumulator += player.gearCards * player.gearCards;
-            pointAccumulator += player.protractorCards * player.protractorCards;
-            pointAccumulator += player.tabletCards * player.tabletCards;
+            int gears = player.gearCards;
+            int protractors = player.protractorCards;
+            int tablets = player.tabletCards;
 
-            int[] calcArray = { player.gearCards, player.protractorCards, player.tabletCards };
+            if(player.hasScientists)
+            {
+                switch (player.scienceSelected)
+                {
+                    case "Gear":
+                        gears++;
+                        break;
+                    case "Protractor":
+                        protractors++;
+                        break;
+                    case "Tablet":
+                        tablets++;
+                        break;
+                }
+            }
+            pointAccumulator += gears * gears;
+            pointAccumulator += protractors * protractors;
+            pointAccumulator += tablets * tablets;
+
+            int[] calcArray = { gears, protractors, tablets };
             pointAccumulator += calcArray.Min() * 7;
 
             //Score guild values

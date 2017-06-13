@@ -40,7 +40,7 @@ namespace SevenWonders.Models
         public int Builders;
         public int ShipOwners;
         public int Strategists;
-
+        public string scienceSelected;
 
     }
 

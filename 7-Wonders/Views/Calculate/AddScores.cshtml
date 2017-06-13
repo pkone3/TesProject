@@ -1,20 +1,17 @@
 ﻿@using SevenWonders.Models
 @model Player
 @{
-    ViewData["Title"] = "Add Scores";
+    ViewData["Title"] = "Add Scores for " + ViewBag.name;
 }
-<h2>@ViewData["Title"].</h2>
+<h2>@ViewData["Title"]</h2>
 
 @{
     using (Html.BeginForm("UpdateScores", "Calculate", FormMethod.Post))
     {
+        @Html.HiddenFor(n => n.id)
         <br />
         <table>
             <tbody>
-                <tr>
-                    <td>@Html.HiddenFor(n => n.id)</td>
-                    <td>@Html.HiddenFor(n => n.name)</td>
-                </tr>
                 <tr>
                     <td>
                         <label>Are you using side A of the player mat?&nbsp;&nbsp;</label>
@@ -120,6 +117,14 @@
                     </td>
                     <td>
                         @Html.CheckBoxFor(n => n.hasScientists)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>     Which science bonus do want?&nbsp;&nbsp;</label>
+                    </td>
+                    <td>
+                        Gear:&nbsp; @Html.RadioButton("ScienceGuild", "Gear") &nbsp; Protractor:&nbsp; @Html.RadioButton("ScienceGuild", "Protractor") &nbsp; Tablet: &nbsp; @Html.RadioButton("ScienceGuild", "Tablet") &nbsp;
                     </td>
                 </tr>
                 <tr>
@@ -241,7 +246,6 @@
     }
 }
 <p />
-<a href="./Index" style="float:right">Return</a>
-<p>
-    @ViewData["Message"]
-</p>
+<div class="floatright">@Html.ActionLink("Cancel", "CalculateList")</div>
+<div>@ViewBag.Message</div>
+

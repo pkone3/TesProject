@@ -19,7 +19,7 @@ namespace SevenWonders.Controllers
             if (Persistent.Wonders.Count == 0)
             {
                 //Load the Wonders list if it is empty
-                string value = "{\"Wonders\": [{\"id\": \"0\", \"name\": \"The Colossus of Rhodes\" },{\"id\": \"1\", \"name\": \"The Lighthouse of Alexandria\"}, {\"id\": \"2\", \"name\": \"The Temple of Artemis in Ephesus\"},{\"id\": \"3\", \"name\": \"The Hanging Gardens of Babylon\"}, {\"id\": \"4\", \"name\": \"The Statue of Zeus in Olympia\"},{\"id\": \"5\", \"name\": \"The Mausoleum of Halicarnassus\"},{\"id\": \"6\", \"name\": \"The Pyramids of Giza\"}]}";
+                string value = "{\"Wonders\": [{\"id\": \"0\", \"name\": \"{Select a Wonder}\" },{\"id\": \"1\", \"name\": \"The Colossus of Rhodes\" },{\"id\": \"2\", \"name\": \"The Lighthouse of Alexandria\"}, {\"id\": \"3\", \"name\": \"The Temple of Artemis in Ephesus\"},{\"id\": \"4\", \"name\": \"The Hanging Gardens of Babylon\"}, {\"id\": \"5\", \"name\": \"The Statue of Zeus in Olympia\"},{\"id\": \"6\", \"name\": \"The Mausoleum of Halicarnassus\"},{\"id\": \"7\", \"name\": \"The Pyramids of Giza\"}]}";
                 var result = JsonConvert.DeserializeObject<WonderList>(value);
                 foreach (Wonder w in result.Wonders)
                 {
@@ -37,12 +37,16 @@ namespace SevenWonders.Controllers
         [HttpPost]
         public ActionResult Add()
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && Request.Form["name"].ToString().Trim().Length > 0)
             {
                 int counter = Persistent.PlayerList.Count();
                 Persistent.PlayerList.Add(new Player { id = counter + 1, name = Request.Form["name"].ToString() });
+                ViewData["Message"] = Request.Form["name"].ToString() + " Added Successfully";
             }
-            ViewData["Message"] = "Player Added Successfully";
+            else
+            {
+                ViewData["Message"] = "ERROR : A blank name cannot be added";
+            }
             return View("AddPlayer");
         }
 
@@ -63,6 +67,7 @@ namespace SevenWonders.Controllers
         public IActionResult AddScores(int id)
         {
             Player player = Persistent.PlayerList.Find(i => i.id == id);
+            ViewBag.name = player.name;
             ViewBag.ddWonders = new SelectList(Persistent.Wonders, "id", "name");
             return View(player);
         }
@@ -71,6 +76,22 @@ namespace SevenWonders.Controllers
         public ActionResult UpdateScores()
         {
             Player p = Persistent.PlayerList.Find(i => i.id == int.Parse(Request.Form["id"]));
+
+            //Validate Entries
+            if (Tools.ConvertToInt(Request.Form["ddWonders"]) == 0)
+            {
+                ViewBag.name = p.name;
+                ViewBag.ddWonders = new SelectList(Persistent.Wonders, "id", "name");
+                ViewBag.Message = "ERROR: Wonder must be selected";
+                return View("AddScores", p);
+            }
+            if (Request.Form["hasScientists"] != "false" && Request.Form["ScienceGuild"].ToString().Trim().Length == 0)
+            {
+                ViewBag.name = p.name;
+                ViewBag.ddWonders = new SelectList(Persistent.Wonders, "id", "name");
+                ViewBag.Message = "ERROR: When Science Guild is Selected, a science bonus must be selected";
+                return View("AddScores", p);
+            }
 
             //Populate the model
             p.victoryTokens = Tools.ConvertToInt(Request.Form["victoryTokens"]);
@@ -86,6 +107,7 @@ namespace SevenWonders.Controllers
             p.gearCards = Tools.ConvertToInt(Request.Form["gearCards"]);
             p.protractorCards = Tools.ConvertToInt(Request.Form["protractorCards"]);
             p.tabletCards = Tools.ConvertToInt(Request.Form["tabletCards"]);
+            p.scienceSelected = Request.Form["ScienceGuild"].ToString();
             p.hasSpies = (Request.Form["hasSpies"] == "false") ? false : true;
             p.hasMagistrates = (Request.Form["hasMagistrates"] == "false") ? false : true;
             p.hasWorkers = (Request.Form["hasWorkers"] == "false") ? false : true;
@@ -96,7 +118,7 @@ namespace SevenWonders.Controllers
             p.hasShipOwners = (Request.Form["hasShipOwners"] == "false") ? false : true;
             p.hasStrategists = (Request.Form["hasStrategists"] == "false") ? false : true;
             p.hasScientists = (Request.Form["hasScientists"] == "false") ? false : true;
-           
+
             //Determine which additional values to move over. Don't move values when they don't have the guild
             p.Spies = (p.hasSpies) ? Tools.ConvertToInt(Request.Form["Spies"]) : 0;
             p.Magistrates = (p.hasMagistrates) ? Tools.ConvertToInt(Request.Form["Magistrates"]) : 0;
@@ -151,6 +173,21 @@ namespace SevenWonders.Controllers
 
         public ActionResult ResetScores()
         {
+            //Save Player Names and order
+            List< Player> temp = new List<Player>();
+            foreach(Player p in Persistent.PlayerList)
+            {
+                temp.Add(p);
+            }
+            //Remove existing records and re-add them
+            Persistent.PlayerList.RemoveAll(p => p.id > 0);
+            foreach (Player p in temp)
+            {
+                Player newP = new Player();
+                newP.name = p.name;
+                Persistent.PlayerList.Add(newP);
+            }
+
             Persistent.PlayerScores.RemoveAll(p => p.id > 0);
             return RedirectToAction("CalculateList");
         }
