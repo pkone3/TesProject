@@ -35,84 +35,8 @@ namespace SevenWonders.Classes
             pointAccumulator += player.coins;
 
             //calculate value of wonder stages
-            if (player.isWonderSideA)
-            {
-                if (player.wonderStages >= 1 && player.wonderStages <= 2) pointAccumulator += 3;
-                if (player.wonderStages == 3) pointAccumulator += 7;
-                if (player.wonderName == "The Pyramids of Giza") pointAccumulator += 5;
-            }
-            else
-            {
-                if (player.wonderName == "The Colossus of Rhodes")
-                {
-                    switch (player.wonderStages)
-                    {
-                        case 1:
-                            pointAccumulator += 3;
-                            break;
-                        case 2:
-                            pointAccumulator += 7;
-                            break;
-                   }
-                }
-                if (player.wonderName == "The Lighthouse of Alexandria")
-                {
-                    if(player.wonderStages == 3) pointAccumulator += 7;
-                }
-                if (player.wonderName == "The Temple of Artemis in Ephesus")
-                {
-                    switch (player.wonderStages)
-                    {
-                        case 1:
-                            pointAccumulator += 2;
-                            break;
-                        case 2:
-                            pointAccumulator += 5;
-                            break;
-                        case 3:
-                            pointAccumulator += 10;
-                            break;
-                    }
-                }
-                if (player.wonderName == "The Hanging Gardens of Babylon")
-                {
-                    if (player.wonderStages >= 1) pointAccumulator += 3;
-                }
-                if (player.wonderName == "The Statue of Zeus in Olympia")
-                {
-                    if (player.wonderStages >= 2) pointAccumulator += 5;
-                }
-                if (player.wonderName == "The Mausoleum of Halicarnassus")
-                {
-                    switch (player.wonderStages)
-                    {
-                        case 1:
-                            pointAccumulator += 2;
-                            break;
-                        case 2:
-                            pointAccumulator += 3;
-                            break;
-                    }
-                }
-                if (player.wonderName == "The Pyramids of Giza")
-                {
-                    switch (player.wonderStages)
-                    {
-                        case 1:
-                            pointAccumulator += 3;
-                            break;
-                        case 2:
-                            pointAccumulator += 8;
-                            break;
-                        case 3:
-                            pointAccumulator += 13;
-                            break;
-                        case 4:
-                            pointAccumulator += 20;
-                            break;
-                    }
-                }
-            }
+            var wonderClass = WonderFactory.CreateWonder(player.wonderName);
+            pointAccumulator += wonderClass.Calculate(player.wonderStages, player.isWonderSideA);
 
             //Score structures
             pointAccumulator += player.civilianPoints;
@@ -169,6 +93,211 @@ namespace SevenWonders.Classes
             }
 
             return pointAccumulator;
+        }
+
+        public static int CalculateSideA(int stages, Boolean sideA)
+        {
+            int pointAccumulator = 0;
+            if (sideA)
+            { 
+                if (stages >= 1 && stages <= 2) pointAccumulator += 3;
+                if (stages == 3) pointAccumulator += 7;
+            }
+            return pointAccumulator;
+        }
+    }
+
+
+    static class WonderFactory
+    {
+        public static WonderAction CreateWonder(string wonderType)
+        {
+            switch (wonderType)
+            {
+                case "The Colossus of Rhodes":
+                    return new Colossus();
+                case "The Lighthouse of Alexandria":
+                    return new Lighthouse();
+                case "The Temple of Artemis in Ephesus":
+                    return new Temple();
+                case "The Hanging Gardens of Babylon":
+                    return new Garden();
+                case "The Statue of Zeus in Olympia":
+                    return new Statue();
+                case "The Mausoleum of Halicarnassus":
+                    return new Mausoleum();
+                case "The Pyramids of Giza":
+                    return new Pyramid();
+                default:
+                    return null;
+            }
+        }
+
+    }
+
+    abstract class WonderAction
+    {
+        public abstract int Calculate(int stages, Boolean sideA);
+    }
+
+    class Colossus : WonderAction
+    {
+        public override int Calculate(int stages, Boolean sideA)
+        {
+            int returnValue = 0;
+
+            returnValue = Tools.CalculateSideA(stages, sideA);
+
+            if (!sideA)
+            { 
+                switch (stages)
+                {
+                    case 1:
+                        returnValue += 3;
+                        break;
+                    case 2:
+                        returnValue += 7;
+                        break;
+                }
+            }
+            return returnValue;
+       }
+    }
+
+    class Lighthouse:WonderAction
+    {
+        public override int Calculate(int stages, bool sideA)
+        {
+            int returnValue = 0;
+
+            returnValue = Tools.CalculateSideA(stages, sideA);
+
+            if (!sideA)
+            {
+                if (stages == 3) returnValue += 7;
+            }
+
+            return returnValue;
+        }
+    }
+
+    class Temple : WonderAction
+    {
+        public override int Calculate(int stages, bool sideA)
+        {
+            int returnValue = 0;
+
+            returnValue = Tools.CalculateSideA(stages, sideA);
+
+            if (!sideA)
+            {
+                switch (stages)
+                {
+                    case 1:
+                        returnValue += 2;
+                        break;
+                    case 2:
+                        returnValue += 5;
+                        break;
+                    case 3:
+                        returnValue += 10;
+                        break;
+                }
+            }
+            return returnValue;
+        }
+    }
+
+    class Garden : WonderAction
+    {
+        public override int Calculate(int stages, bool sideA)
+        {
+            int returnValue = 0;
+
+            returnValue = Tools.CalculateSideA(stages, sideA);
+
+            if (!sideA)
+            {
+                if (stages >= 1) returnValue += 3;
+            }
+
+            return returnValue;
+        }
+    }
+
+    class Statue : WonderAction
+    {
+        public override int Calculate(int stages, bool sideA)
+        {
+            int returnValue = 0;
+
+            returnValue = Tools.CalculateSideA(stages, sideA);
+
+            if (!sideA)
+            {
+                if (stages >= 2) returnValue += 5;
+            }
+
+            return returnValue;
+        }
+    }
+
+    class Mausoleum : WonderAction
+    {
+        public override int Calculate(int stages, bool sideA)
+        {
+            int returnValue = 0;
+
+            returnValue = Tools.CalculateSideA(stages, sideA);
+
+            if (!sideA)
+            {
+                switch (stages)
+                {
+                    case 1:
+                        returnValue += 2;
+                        break;
+                    case 2:
+                        returnValue += 3;
+                        break;
+                }
+            }
+
+            return returnValue;
+        }
+    }
+
+    class Pyramid : WonderAction
+    {
+        public override int Calculate(int stages, bool sideA)
+        {
+            int returnValue = 0;
+
+            returnValue = Tools.CalculateSideA(stages, sideA);
+            if (sideA)
+            {
+                if (stages >= 2) returnValue += 5;
+            }
+            else
+            {
+                switch (stages)
+                {
+                    case 1:
+                        returnValue += 3;
+                        break;
+                    case 2:
+                        returnValue += 8;
+                        break;
+                    case 3:
+                        returnValue += 13;
+                        break;
+                    case 4:
+                        returnValue += 20;
+                        break;
+                }
+            }
+
+            return returnValue;
         }
     }
 }
