@@ -1,30 +1,36 @@
-﻿[
-  {
-    "id": "0",
-    "name": "The Colossus of Rhodes"
-  },
-  {
-    "id": "1",
-    "name": "The Lighthouse of Alexandria"
-  },
-  {
-    "id": "2",
-    "name": "The Temple of Artemis in Ephesus"
-  },
-  {
-    "id": "3",
-    "name": "The Hanging Gardens of Babylon"
-  },
-  {
-    "id": "4",
-    "name": "The Statue of Zeus in Olympia"
-  },
-  {
-    "id": "5",
-    "name": "The Mausoleum of Halicarnassus"
-  },
-  {
-    "id": "6",
-    "name": "The Pyramids of Giza"
-  }
-]
+﻿{"Wonders":
+  [
+    {
+      "id": "0",
+      "name": "{Select a Wonder}"
+    },
+    {
+      "id": "1",
+      "name": "The Colossus of Rhodes"
+    },
+    {
+      "id": "2",
+      "name": "The Lighthouse of Alexandria"
+    },
+    {
+      "id": "3",
+      "name": "The Temple of Artemis in Ephesus"
+    },
+    {
+      "id": "4",
+      "name": "The Hanging Gardens of Babylon"
+    },
+    {
+      "id": "5",
+      "name": "The Statue of Zeus in Olympia"
+    },
+    {
+      "id": "6",
+      "name": "The Mausoleum of Halicarnassus"
+    },
+    {
+      "id": "7",
+      "name": "The Pyramids of Giza"
+    }
+  ]
+}

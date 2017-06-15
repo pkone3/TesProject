@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SevenWonders.Models;
 using SevenWonders.Classes;
-using System.IO;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json.Linq;
 
 namespace SevenWonders.Controllers
 {
@@ -18,9 +18,9 @@ namespace SevenWonders.Controllers
         {
             if (Persistent.Wonders.Count == 0)
             {
-                //Load the Wonders list if it is empty
-                string value = "{\"Wonders\": [{\"id\": \"0\", \"name\": \"{Select a Wonder}\" },{\"id\": \"1\", \"name\": \"The Colossus of Rhodes\" },{\"id\": \"2\", \"name\": \"The Lighthouse of Alexandria\"}, {\"id\": \"3\", \"name\": \"The Temple of Artemis in Ephesus\"},{\"id\": \"4\", \"name\": \"The Hanging Gardens of Babylon\"}, {\"id\": \"5\", \"name\": \"The Statue of Zeus in Olympia\"},{\"id\": \"6\", \"name\": \"The Mausoleum of Halicarnassus\"},{\"id\": \"7\", \"name\": \"The Pyramids of Giza\"}]}";
-                var result = JsonConvert.DeserializeObject<WonderList>(value);
+                //Load the Wonders list if it is empty from the JSON file
+                JObject value = JObject.Parse(System.IO.File.ReadAllText("Wonder.json"));
+                 var result = JsonConvert.DeserializeObject<WonderList>(value.ToString());
                 foreach (Wonder w in result.Wonders)
                 {
                     Persistent.Wonders.Add(w);
@@ -143,7 +143,7 @@ namespace SevenWonders.Controllers
             { 
                 Scores PlayerScore = new Scores();
                 int TotalScore = 0;
-                TotalScore = Tools.ScorePlayer(player);
+                TotalScore = Scoring.ScorePlayer(player);
 
                 //Add player score record
                 PlayerScore.id = player.id;
@@ -174,6 +174,7 @@ namespace SevenWonders.Controllers
         public ActionResult ResetScores()
         {
             //Save Player Names and order
+            int playerId = 1;
             List< Player> temp = new List<Player>();
             foreach(Player p in Persistent.PlayerList)
             {
@@ -184,8 +185,10 @@ namespace SevenWonders.Controllers
             foreach (Player p in temp)
             {
                 Player newP = new Player();
+                newP.id = playerId;
                 newP.name = p.name;
                 Persistent.PlayerList.Add(newP);
+                playerId++;
             }
 
             Persistent.PlayerScores.RemoveAll(p => p.id > 0);
